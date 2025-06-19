@@ -1,0 +1,121 @@
+:root{
+    --primary-color: #291C3A;
+    --secondary-color: #331C52;
+    --tertiary-color: #8121D0;
+    --accent: #DCCFED;
+    --text-color: #fff;
+    --container: #E1EBED;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+.notifications{
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    column-gap: 70px;
+    min-height: 100vh;
+}
+.notification-container{
+    margin-top: 40px;
+    width: 800px;
+    box-sizing: border-box;
+}
+.notif-logo{
+    font-size: 40px;
+}
+.today-label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.mark-as-read{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+.mark-as-read p{
+    font-size: 17px;
+    cursor: pointer;
+}
+.mark-as-read p:hover{
+    text-decoration: underline;
+}
+.mark-as-read a{
+    font-size: 20px;
+    color: var(--primary-color);
+}
+.today-notif-container{
+    text-decoration: none;
+}
+.post-notif{
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    /* background: rgba(182, 182, 182, 0.3); */
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.today-notif-container.unread .post-notif {
+    background: rgba(182, 182, 182, 0.3);
+}
+
+.today-notif-container.read .post-notif {
+    background: white;
+}
+.user-image{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+    object-fit: cover;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    justify-content: center;
+}
+
+.user-info-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+.user-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-left: -185px;
+}
+.notif-date{
+    font-size: 12px;
+    margin-top: 3px;
+    color: var(--primary-color);
+}
+.notif-message{
+    font-size: 14px;
+    color: var(--primary-color);
+}
+.no-notification{
+    text-align: center;
+    width: 800px;
+    margin-top: 200px;
+    font-style: italic;
+}

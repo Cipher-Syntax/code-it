@@ -1,0 +1,61 @@
+:root{
+    --primary-color: #291C3A;
+    --secondary-color: #331C52;
+    --tertiary-color: #8121D0;
+    --accent: #DCCFED;
+    --text-color: #fff;
+    --container: #E1EBED;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+.about-us-section{
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    column-gap: 70px;
+    min-height: 100vh;
+}
+.about-us-container{
+    margin-top: 50px;
+    width: 800px;
+}
+.about-logo{
+    font-size: 30px;
+}
+.about-separator{
+    margin-top: 20px;
+}
+.about-text{
+    margin-top: 50px;
+}
+.about-text p{
+    margin-top: 30px;
+}
+.about-text span{
+    font-weight: bold;
+}
+.about-text ul{
+    margin-left: 50px;
+}
+.our-mission{
+    margin-top: 30px;
+}
+.our-mission p{
+    margin-top: 10px;
+}
+.our-mission span{
+    font-weight: bold;
+}
+.our-mission ul{
+    margin-left: 50px;
+}

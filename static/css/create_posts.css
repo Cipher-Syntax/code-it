@@ -1,0 +1,113 @@
+:root{
+    --primary-color: #291C3A;
+    --secondary-color: #331C52;
+    --tertiary-color: #8121D0;
+    --accent: #DCCFED;
+    --text-color: #fff;
+    --container: #E1EBED;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+.create-posts{
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    column-gap: 70px;
+    min-height: 100vh;
+}
+.create-posts-container{
+    margin-top: 50px;
+    width: 800px;
+}
+.create-logo{
+    font-size: 30px;
+}
+.create-separator{
+    margin-top: 20px;
+}
+.feedback{
+    text-align: center;
+    background-color: rgb(154, 255, 2);
+    color: var(--text-color);
+    padding: 5px 10px;
+    font-weight: bold;
+    width: 400px;
+    left: 33%;
+    position: absolute;
+    border-radius: 20px;
+}
+.title-container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 800px;
+}
+.title-container input{
+    width: 100%;
+    border-radius: 10px;
+    height: 40px;
+    outline: none;
+    padding: 0 20px;
+    border: 0.5px solid var(--primary-color);
+}
+.image-container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 800px;
+}
+.image{
+    border: 0.5px solid var(--primary-color);
+    width: 800px;
+    border-radius: 20px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.description-container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 800px;
+}
+.description-container textarea{
+    width: 100%;
+    border-radius: 10px;
+    height: 200px;
+    outline: none;
+    padding: 20px;
+    border: 0.5px solid var(--primary-color);
+}
+.post-btn{
+    margin-top: 30px;
+    width: 200px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    margin-bottom: 40px;
+    cursor: pointer;
+    font-size: 20px;
+}

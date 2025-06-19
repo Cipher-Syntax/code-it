@@ -1,0 +1,103 @@
+:root{
+    --primary-color: #291C3A;
+    --secondary-color: #331C52;
+    --tertiary-color: #8121D0;
+    --accent: #DCCFED;
+    --text-color: #fff;
+    --container: #E1EBED;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+.sidebar{
+    width: 50px;
+    height: auto;
+    min-height: 100vh;
+    background: rgba(41, 28, 58, 0.30);
+    transition: width 0.3s;
+    overflow: hidden;
+}
+.sidebar.expanded{
+    width: 300px;
+}
+.menu{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 25px;
+    top: 100px;
+    margin-bottom: 70px;
+    cursor: pointer;
+    transition: left 0.3s;
+}
+.sidebar.expanded .menu{
+    left: 275px;
+}
+.sidebar-container{
+    margin-top: 100px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    row-gap: 30px;
+    transition: align-items 0.3s;
+}
+.sidebar-container i{
+    font-size: 20px;
+    min-width: 24px;
+}
+.sidebar-item{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.sidebar-item:hover{
+    background: var(--secondary-color);
+    color: var(--text-color);
+}
+.sidebar-item:hover i,
+.sidebar-item:hover .label {
+    color: var(--text-color);
+}
+.label{
+    display: none;
+    margin-left: 16px;
+    color: var(--primary-color);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    text-decoration: none;
+}
+.sidebar.expanded .label{
+    display: inline;
+    opacity: 1;
+}
+.separator{
+    height: 3px;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+    margin: 10px 0;
+}

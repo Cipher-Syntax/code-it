@@ -1,0 +1,23 @@
+# Django stuff:
+*.py[cod]
+__pycache__/
+db.sqlite3
+media/comment_images
+media/others
+media/post_images
+media/profile_images
+
+
+# Virtual env:
+venv/
+.env
+
+# VS Code and JetBrains IDEs:
+.vscode/
+.idea/
+
+# Static file collection (if using `collectstatic`)
+staticfiles/
+
+# Logs
+*.log

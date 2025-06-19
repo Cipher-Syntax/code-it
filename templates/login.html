@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/512b61e275.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="login">
+        <div class="login-container">
+            <div class="left-side">
+                <h1 class="logo-text">code</h1>
+                <div class="left-side-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="118" height="93" viewBox="0 0 118 93" fill="none">
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" fill="white"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" fill="white"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" fill="white"/>
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" stroke="#E1EBED"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" stroke="#E1EBED"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" stroke="#E1EBED"/>
+                    </svg>
+                    <h1>it</h1>
+                </div>
+            </div>
+
+            <form action="" method="POST" class="right-side">
+                {% csrf_token %}
+                <h1 class="right-side-logo">login</h1>
+
+                <div class="error-message" style="position: absolute; left: 70%; top: 27%; color: #fb5454;"> 
+                    {% for message in messages %}
+                        <h5>{{message}}</h5>
+                    {% endfor %}
+                </div>
+
+                <div class="email">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="email">
+                </div>
+
+                <div class="password">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="password" autocomplete="off">
+                </div>
+
+                <div class="remember-me">
+                    <input type="checkbox" name="remember_me"> Remember Me
+                </div>
+                
+                <div class="login-btn">
+                    <input type="submit" value="Login">
+                </div>
+
+                <!-- Other login options -->
+                <div class="other-login">
+                    <hr>
+                    <p>or login with</p>
+                    <hr>
+                </div>
+
+                <div class="other-login-options">
+                    <div class="google">
+                        <div class="google-icon">
+                            <i class='fab fa-google'></i>
+                        </div>
+                        <p>Google</p>
+                    </div>
+                    <div class="github">
+                        <div class="github-icon">
+                            <i class="fa-brands fa-github"></i>
+                        </div>
+                        <p>Github</p>
+                    </div>
+                </div>
+
+                
+                <div class="create-account">
+                    <p>Don't have an account yet?</p>
+                    <a href="/create_account">Create Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

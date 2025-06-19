@@ -1,0 +1,39 @@
+<!-- SIDEBAR -->
+<section class="sidebar expanded" id="sidebar">
+    <div class="menu" id="menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <div class="sidebar-container">
+        <div class="home sidebar-item">
+            <i class="fa-solid fa-house-chimney"></i>
+            <a href="{% url 'landing_page' %}" class="label">Home</a>
+        </div>
+
+        <div class="popular sidebar-item">
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <a href="{% url 'popular_page' %}" class="label">Popular</a>
+        </div>
+
+        <div class="all sidebar-item">
+            <i class="fa-solid fa-border-all"></i>
+            <a href="{% url 'hot_page' %}" class="label">Hot</a>
+        </div>
+
+        <hr class="separator">
+
+        <div class="settings sidebar-item">
+            <i class="fa-solid fa-gear"></i>
+            <a href="{% url 'settings' %}" class="label">Settings</a>
+        </div>
+
+        <div class="about-us sidebar-item">
+            <i class="fa-solid fa-circle-info"></i>
+            <a href="{% url 'about_us' %}" class="label">About Us</a>
+        </div>
+
+        <!-- <div class="help sidebar-item">
+            <i class="fa-solid fa-question"></i>
+            <a href="" class="label">Help</a>
+        </div> -->
+    </div>
+</section>

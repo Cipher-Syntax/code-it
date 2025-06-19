@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/notification.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
+    {% include 'styles.html' %}
+    
+</head>
+<body>
+    <div class="blur-wrapper  {% if not is_logged_in %}blurred{% endif %}">
+        {% include 'header.html' %}
+
+        <section class="notifications">
+            {% include 'sidebar.html' %}
+
+
+            <div class="notification-container">
+                <h1 class="notif-logo">Notifications</h1>
+
+                <hr class="separator">
+
+                <div class="today-label">
+                    <h3>Notification</h3>
+
+                    <div class="mark-as-read">
+                        <p id="markAllRead" style="cursor:pointer;">Mark all as read</p> | 
+                        <a href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i></a>
+                        <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+                    </div>
+                </div>
+                {% for notif in notifications %}
+                    <a href="{% url 'read_notification' notif.id %}" class="today-notif-container {% if notif.is_read %}read{% else %}unread{% endif %}">
+                        <div class="post-notif">
+                            {% if notif.author_profile and notif.author_profile.user_profile %}
+                                <img src="{{ notif.author_profile.user_profile.url }}" alt="user" class="user-image">
+                            {% else %}
+                                <img src="{% static 'images/blank_profile.png' %}" alt="user" class="user-image">
+                            {% endif %}
+                            <div class="user-info">
+                                <div class="user-info-top">
+                                    <h3>{{ notif.from_user.firstname|default:"Unknown" }}</h3> | 
+                                    <p class="notif-date">{{ notif.created_at|date:'M d, Y - H:i' }}</p>
+                                </div>
+                                <p class="notif-message">{{ notif.message }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p class="no-notification">No new notifications</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% include 'footer.html' %}
+    </div>
+    
+    {% if not is_logged_in %}
+        <div class="login-container">
+            <div class="login-logo">
+                <h1 class="logo-text">code</h1>
+                <div class="login-side-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="118" height="93" viewBox="0 0 118 93" fill="none">
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" fill="white"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" fill="white"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" fill="white"/>
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" stroke="#E1EBED"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" stroke="#E1EBED"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" stroke="#E1EBED"/>
+                    </svg>
+                    <h1>it</h1>
+                </div>
+            </div>
+
+            <p class="information">...You need to login to proceed...</p>
+            
+            <div class="login-link">
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'create_account' %}">Signup</a>
+            </div>
+        </div>
+    {% endif %}
+
+    <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+
+    <script>
+        const CSRF_TOKEN = document.getElementById('csrfToken').value
+        document.getElementById('markAllRead').addEventListener('click', function() {
+            fetch("{% url 'mark_all_notifications_as_read' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': CSRF_TOKEN,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelectorAll('.today-notif-container').forEach(el => {
+                        el.classList.remove('unread');
+                        el.classList.add('read');
+                    });
+                }
+            })
+            .catch(err => console.error('Error:', err));
+        });
+    </script>
+</body>
+</html>

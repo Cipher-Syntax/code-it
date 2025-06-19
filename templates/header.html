@@ -1,0 +1,99 @@
+<!-- HEADER -->
+{% load static %}
+ 
+{% if is_logged_in %}
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>code/it</h1>
+            </div>
+
+            <form action="{% url 'search' %}" method="POST" class="search-bar">
+                {% csrf_token %}
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" name="search_bar" placeholder="Search code/it">
+            </form>
+
+            <div class="user-profile">
+                <a href="{% url 'create_posts' %}" class="create-post">
+                    <i class="fa-solid fa-plus"></i>
+                    <p>create</p>
+                </a>
+
+                <!-- <a href="{% url 'notification' %}">
+                    <i class="fa-regular fa-bell {% if unread_notifications and unread_notifications > 0 %} unread-bell  {% else %} read-bell {% endif %}"></i>
+                </a> -->
+
+                <a href="{% url 'notification' %}" class="notification">
+                    {% if unread_notifications and unread_notifications > 0 %}
+                        <i class="fa-regular fa-bell"></i>
+                        <p class="notif-value">{{unread_notifications}}</p>
+                    {% else %}
+                        <i class="fa-regular fa-bell"></i>
+                    {% endif %}
+                </a>
+                <div class="user-img" onclick="toggleMenu()">
+                    {% if profile %}
+                        <img src="{{ profile.user_profile.url }}" alt="user">
+                    {% else %}
+                        <img src="{% static 'images/blank_profile.png' %}" alt="user">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-menu-wrapper" id="js-sub-menu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    {% if profile %}
+                        <img src="{{ profile.user_profile.url }}" alt="user" class="user-pic">
+                    {% else %}
+                        <img src="{% static 'images/blank_profile.png' %}" alt="user" class="user-pic">
+                    {% endif %}
+                    <h2>{{user.firstname}}</h2>
+                </div>
+                <hr>
+
+                <a href="{% url 'edit_profile' %}" class="sub-menu-links edit-profile">
+                    <i class='bx bx-user'></i>
+                    <p>Edit Profile</p>
+                </a>
+
+                
+                <a href="{% url 'settings' %}" class="sub-menu-links settings-and-privacy">
+                    <i class='bx bx-cog'></i>
+                    <p>Settings</p>
+                </a>
+
+                <a href="{% url 'notification' %}" class="sub-menu-links history">
+                    <i class='bx bx-history'></i>
+                    <p>Notifications</p>
+                </a>
+
+                <a href="{% url 'logout' %}" class="sub-menu-links logout" id="logout">
+                    <i class='bx bx-log-out'></i>
+                    <p>Logout</p>
+                </a>
+            </div>
+        </div>
+    </header>
+{% else %}
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>code/it</h1>
+            </div>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" name="search_bar" placeholder="Search code/it">
+            </div>
+            
+            <div class="login-btn">
+                <a href="{% url 'login' %}">Login or signup</a>
+            </div>
+        </div>
+    </header>
+
+{% endif %}
+    

@@ -1,0 +1,257 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Detail</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/posts_details.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    {% include 'styles.html' %}
+
+</head>
+<body>
+    <div class="blur-wrapper {% if not is_logged_in %}blurred{% endif %} ">
+
+        {% include 'header.html' %}
+
+        <!-- SIDEBAR -->
+        <div class="container">
+            {% include 'sidebar.html' %}
+            
+            <!-- POSTS -->
+            <section class="right-side">
+                <div class="posts">
+
+                    <a href="javascript:history.back()" class="back-btn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+
+                    <div class="posts-container">
+                        <div class="profile">
+                            <div class="profile-pic">
+                                {% if post_detail.author_profile and post_detail.author_profile.user_profile %}
+                                    <img src="{{ post_detail.author_profile.user_profile.url }}" alt="user">
+                                {% else %}
+                                    <img src="{% static 'images/blank_profile.png' %}" alt="user">
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'profile' post_detail.user.id %}"><h5 class="name">{{post_detail.user.firstname}}</h5></a>
+                            <ul class="date"><li>{{post_detail.created_at}}</li></ul>
+                        </div>
+
+                        <div class="posts-content">
+                            <h3 class="posts-title">{{post_detail.title}}</h3>
+                            <p class="posts-description">{{post_detail.caption}}</p>
+
+                            {% if post_detail.image %}
+                                <div class="posts-image">
+                                    <img src="{{ post_detail.image.url }}" alt="Post Image">
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="posts-likes-comments">
+                            <a href="" class="likes {% if user in post_detail.likes.all %}active{% endif %}" data-post-id="{{ post_detail.id }}">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <p class="like-count">{{ post_detail.likes_count }}</p>
+                            </a>
+
+                            <a href="" class="comments">
+                                <i class="fa-solid fa-comment"></i>
+                                <p>{{post_detail.comments_count}}</p>
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="separate-posts">
+                </div>
+
+                <form action="{% url 'create_comment' %}" method="POST" enctype="multipart/form-data" class="comments-here" id="comment-box">
+                    {% csrf_token %}
+                    <div id="preview-container" style="display:none; margin-bottom: 10px;"></div>
+                    
+                    <textarea name="comment_input" class="comment-here-input" id="comment-input" placeholder="Comment here..."></textarea>
+
+                    <div class="comment-actions" id="comment-actions">
+                        <div class="icons">
+                            <button class="icon-btn" id="upload-image-btn" type="button">
+                                <i class="fa-solid fa-image"></i>
+                            </button>
+                            <button class="icon-btn" id="upload-gif-btn" type="button">
+                                GIF
+                            </button>
+                        
+                            <input type="file" id="image-upload" name="image_upload" accept="image/*" style="display: none;">
+                            <input type="file" id="gif-upload" name="gif_upload" accept="image/gif" style="display: none;">
+                            <input type="hidden" name="post_id" value="{{ post_detail.id }}">
+                        </div>
+
+                        <div class="comment-buttons">
+                            <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+                            <button type="submit" class="comment-btn">Comment</button>
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <div class="sorting">
+                    <p>Sort By: </p>
+                    <form action="" method="get" id="sortForm">
+                        <select name="sort" id="sort" onchange="document.getElementById('sortForm').submit()">
+                            <option value="all" {% if comment_sort == 'all' %}selected{% endif %}>All</option>
+                            <option value="popular" {% if comment_sort == 'popular' %}selected{% endif %}>Popular</option>
+                            <option value="hot" {% if comment_sort == 'hot' %}selected{% endif %}>Hot</option>
+                        </select>
+                    </form>
+
+                {% for c in comments %}
+                    <div class="users-comments">
+                        <div class="comment-profile">
+                            <div class="comment-profile-pic">
+                                {% if c.author_profile and c.author_profile.user_profile and c.author_profile.user_profile.url %}
+                                    <img src="{{ c.author_profile.user_profile.url }}" alt="user">
+                                {% else %}
+                                    <img src="{% static 'images/blank_profile.png' %}" alt="user">
+                                {% endif %}
+
+                            </div>
+                            <a href="{% url 'profile' c.user.id %}"><h5 class="comment-name">{{c.user.firstname}}</h5></a>
+                            <ul class="comment-date"><li>{{c.created_at}}</li></ul>
+                        </div>
+
+                        <div class="comment-posts-content">
+                            <p class="comment-posts-description">{{c.comments}}</p>
+                        </div>
+
+                        {% if c.image %}
+                            <div class="comment-posts-image">
+                                <img src="{{ c.image.url }}" alt="Post Image">
+                            </div>
+                        {% endif %}
+
+                        <div class="comment-posts-likes-comments">
+                            <a href="#" class="comment-likes {% if c.is_liked_by_user %}comment-active{% endif %}" data-comment-id="{{ c.id }}">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <p class="comment-like-count">{{ c.like_count }}</p>
+                            </a>
+
+                            <!-- <div class="comment-comments">
+                                <i class="fa-solid fa-comment"></i>
+                                <p>reply</p>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+
+            </section>
+        </div>
+
+        {% include 'footer.html' %}
+    </div>
+
+    {% if not is_logged_in %}
+        <div class="login-container">
+            <div class="login-logo">
+                <h1 class="logo-text">code</h1>
+                <div class="login-side-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="118" height="93" viewBox="0 0 118 93" fill="none">
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" fill="white"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" fill="white"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" fill="white"/>
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" stroke="#E1EBED"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" stroke="#E1EBED"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" stroke="#E1EBED"/>
+                    </svg>
+                    <h1>it</h1>
+                </div>
+            </div>
+
+            <p class="information">...You need to login to proceed...</p>
+            
+            <div class="login-link">
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'create_account' %}">Signup</a>
+            </div>
+        </div>
+    {% endif %}
+    
+
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/comments.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+
+    <script>
+        document.querySelectorAll('.likes').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const postId = this.dataset.postId;
+                const likeCount = this.querySelector('.like-count');
+                const isActive = this.classList.contains('active');
+
+                fetch('/toggle-like/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `post_id=${postId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        this.classList.add('active');
+                    } else {
+                        this.classList.remove('active');
+                    }
+                    likeCount.textContent = data.likes_count;
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeButtons = document.querySelectorAll('.comment-likes');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const commentId = this.getAttribute('data-comment-id');
+                    const likeCountEl = this.querySelector('.comment-like-count');
+                    const icon = this.querySelector('i');
+
+                    fetch("{% url 'toggle_comment_like' %}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `comment_id=${commentId}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.liked) {
+                            this.classList.add('comment-active');
+                        } else {
+                            this.classList.remove('comment-active');
+                        }
+                        likeCountEl.textContent = data.like_count;
+                    });
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>

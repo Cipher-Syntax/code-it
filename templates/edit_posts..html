@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Detail</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/edit_posts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    {% include 'styles.html' %}
+
+</head>
+<body>
+    <div class="blur-wrapper {% if not is_logged_in %}blurred{% endif %} ">
+
+        {% include 'header.html' %}
+
+        <!-- SIDEBAR -->
+        <div class="container">
+            {% include 'sidebar.html' %}
+            
+            <!-- POSTS -->
+            <section class="right-side">
+                <div class="posts">
+
+                    <a href="javascript:history.back()" class="back-btn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+
+                    <form action="" method="POST" class="posts-container">
+                        {% csrf_token %}
+                        <div class="profile">
+                            <div class="profile-pic">
+                                {% if edit_posts.author_profile and edit_posts.author_profile.user_profile %}
+                                    <img src="{{ edit_posts.author_profile.user_profile.url }}" alt="user">
+                                {% else %}
+                                    <img src="{% static 'images/blank_profile.png' %}" alt="user">
+                                {% endif %}
+                            </div>
+                            <a href=""><h5 class="name">{{edit_posts.user.firstname}}</h5></a>
+                            <ul class="date"><li>{{edit_posts.created_at}}</li></ul>
+                        </div>
+
+                        <div class="posts-content">
+                            <input type="text" name="edit_title" class="posts-title" value="{{edit_posts.title}}">
+                            <textarea name="edit_caption" class="posts-description">{{edit_posts.caption}}</textarea>
+
+                            {% if edit_posts.image %}
+                                <div class="posts-image">
+                                    <img src="{{ edit_posts.image.url }}" alt="Post Image">
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" name="submit" class="edit-btn">Update</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        {% include 'footer.html' %}
+    </div>
+
+    {% if not is_logged_in %}
+        <div class="login-container">
+            <div class="login-logo">
+                <h1 class="logo-text">code</h1>
+                <div class="login-side-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="118" height="93" viewBox="0 0 118 93" fill="none">
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" fill="white"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" fill="white"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" fill="white"/>
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" stroke="#E1EBED"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" stroke="#E1EBED"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" stroke="#E1EBED"/>
+                    </svg>
+                    <h1>it</h1>
+                </div>
+            </div>
+
+            <p class="information">...You need to login to proceed...</p>
+            
+            <div class="login-link">
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'create_account' %}">Signup</a>
+            </div>
+        </div>
+    {% endif %}
+    
+
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/comments.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+</body>
+</html>

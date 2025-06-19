@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    {% include 'styles.html' %}
+</head>
+<body>
+    <div class="blur-wrapper {% if not is_logged_in %} blurred {% endif %} ">
+        {% include 'header.html' %}
+
+        <section class="about-us-section">
+            {% include 'sidebar.html' %}
+
+            <div class="about-us-container">
+                <h1 class="about-logo">About Us</h1>
+
+                <hr class="about-separator">
+
+                <div class="about-text">
+                    <p>
+                        Code/IT is a web-based forum designed specifically for coders, developers, and tech enthusiasts.
+                        Think of it like a chill version of Reddit — but exclusively for people who speak fluent Python, dream in JavaScript, and sometimes argue whether tabs or spaces are better.
+                    </p>
+
+                    <p>
+                        We’re a place <span>where you don’t need to be a pro to be heard</span>. Whether you're:
+                    </p>
+
+                    <ul>
+                        <li>Debugging your first line of code</li>
+                        <li>Building your own SaaS project</li>
+                        <li>Or just need someone to help figure out why your CSS isn’t centering </li>
+                    </ul>
+
+                    <p>…you’re welcome here.</p>
+                </div>
+
+                <div class="our-mission">
+                    <h1 class="our-mission">Our Mission</h1>
+                    <p>To <span>make coding feel less lonely</span> and more collaborative.</p>
+                    <p>To build a <span>supportive, distraction-free zone</span> where anyone — student, freelancer, or senior dev — can:</p>
+
+                    <ul>
+                        <li>Ask questions (even the “stupid” ones)</li>
+                        <li>Learn together, grow together</li>
+                        <li>Share projects, tools, and breakthroughs</li>
+                    </ul>
+
+                    <p>We believe in open learning, curiosity, and mutual respect. No egos, no gatekeeping — just code and connection.</p>
+                </div>
+            </div>
+        </section>
+
+        {% include 'footer.html' %}
+    </div>
+
+    {% if not is_logged_in %}
+        <div class="login-container">
+            <div class="login-logo">
+                <h1 class="logo-text">code</h1>
+                <div class="login-side-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="118" height="93" viewBox="0 0 118 93" fill="none">
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" fill="white"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" fill="white"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" fill="white"/>
+                    <path d="M108 46L82.5 20L80.5 20.5L77.5 23.5V25.5L98.5 47L77.5 68L77 69.5L80.5 73H82.5L108 47V46Z" stroke="#E1EBED"/>
+                    <path d="M68 10H66.5L46.5 79.5V81.5L50 83H51.5L72 12L71.5 11L68 10Z" stroke="#E1EBED"/>
+                    <path d="M37 20H36L10 46V47.5L36 73H37.5L41 69.5L40.5 68L19.5 46.5L41.5 24.5L41 23.5L37 20Z" stroke="#E1EBED"/>
+                    </svg>
+                    <h1>it</h1>
+                </div>
+            </div>
+
+            <p class="information">...You need to login to proceed...</p>
+            
+            <div class="login-link">
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'create_account' %}">Signup</a>
+            </div>
+        </div>
+    {% endif %}
+
+    <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+</body>
+</html>

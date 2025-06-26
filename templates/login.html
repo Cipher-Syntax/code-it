@@ -69,7 +69,16 @@
                 </div>
 
                 <div class="other-login-options">
-                    <div class="google">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="google">
+                        <div class="google-icon"><i class='fab fa-google'></i></div>
+                        <p>Google</p>
+                    </a>
+
+                    <a href="{% url 'social:begin' 'github' %}" class="github">
+                        <div class="github-icon"><i class="fa-brands fa-github"></i></div>
+                        <p>GitHub</p>
+                    </a>
+                    <!-- <div class="google">
                         <div class="google-icon">
                             <i class='fab fa-google'></i>
                         </div>
@@ -80,7 +89,7 @@
                             <i class="fa-brands fa-github"></i>
                         </div>
                         <p>Github</p>
-                    </div>
+                    </div> -->
                 </div>
 
                 

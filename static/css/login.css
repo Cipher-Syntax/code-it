@@ -157,6 +157,8 @@ body{
     align-items: center;
     justify-content: flex-start;
     column-gap: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
 }
 .google-icon,
 .github-icon

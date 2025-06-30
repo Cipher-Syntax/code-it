@@ -49,7 +49,7 @@
 
                         <div class="posts-content">
                             <input type="text" name="edit_title" class="posts-title" value="{{edit_posts.title}}">
-                            <textarea name="edit_caption" class="posts-description">{{edit_posts.caption}}</textarea>
+                            <textarea name="edit_caption" class="posts-description" placeholder="{% if edit_posts.caption == '' %} Description {% endif %}">{{edit_posts.caption}}</textarea>
 
                             {% if edit_posts.image %}
                                 <div class="posts-image">
